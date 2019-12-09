@@ -17,6 +17,7 @@ class SplashBloc {
         final fakePoint = fakeList[i];
         final p = LatLngAndGeohash(
           LatLng(fakePoint["LATITUDE"], fakePoint["LONGITUDE"]),
+          null
         );
         myPoints.add(p);
       }
