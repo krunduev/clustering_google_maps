@@ -212,7 +212,7 @@ class ClusteringHelper {
     });
     final count = tmp.length;
     final a =
-        AggregatedPoints(LatLng(latitude / count, longitude / count), count);
+        AggregatedPoints(LatLng(latitude / count, longitude / count), count==1? tmp.first.bitmapDescriptor:null, count);
     resultList.add(a);
     return _retrieveAggregatedPoints(newInputList, resultList, level);
   }
@@ -240,6 +240,8 @@ class ClusteringHelper {
         if (bitmapAssetPathForSingleMarker != null) {
           bitmapDescriptor =
               BitmapDescriptor.fromAsset(bitmapAssetPathForSingleMarker);
+        } else if (a.bitmapDescriptor != null) {
+          bitmapDescriptor = a.bitmapDescriptor;
         } else {
           bitmapDescriptor = BitmapDescriptor.defaultMarker;
         }
@@ -292,7 +294,7 @@ class ClusteringHelper {
                   "${p.location.latitude.toStringAsFixed(2)},${p.location.longitude.toStringAsFixed(2)}"),
           icon: bitmapAssetPathForSingleMarker != null
               ? BitmapDescriptor.fromAsset(bitmapAssetPathForSingleMarker)
-              : BitmapDescriptor.defaultMarker,
+              : p.bitmapDescriptor!=null ? p.bitmapDescriptor : BitmapDescriptor.defaultMarker,
         );
       }).toSet();
       updateMarkers(markers);
